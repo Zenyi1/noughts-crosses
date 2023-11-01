@@ -81,7 +81,6 @@ public class Game {
     public boolean checkRows() {
         for (int i = 0; i < 9; i+=3) {
             if (board[i] != BoxStatus.Empty && board[i] == board[i+1] && board[i] == board[i+2]) {
-                System.out.println("I failed r");
                 return true;
                 
             }
@@ -92,12 +91,10 @@ public class Game {
     //Checks for diagonals wins, not loop since there are only 2 specific cases
     public boolean checkDiagonal() {
         if (board[0] != BoxStatus.Empty && board[0] == board[4] && board[0] == board[8]) {
-            System.out.println("I failed d");
             return true;
             
         }
         if (board[2] != BoxStatus.Empty && board[2] == board[4] && board[2] == board[6]) {
-            System.out.println("I failed d");
             return true;
             
         }
@@ -108,7 +105,6 @@ public class Game {
     public boolean checkColumns() {
         for (int i = 0; i<3; i++){
             if (board[i] != BoxStatus.Empty && board[i] == board [i+3] && board[i] == board[i+6]) {
-                System.out.println("I failed c");
                 return true;
                 
             }
