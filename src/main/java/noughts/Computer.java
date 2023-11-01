@@ -10,12 +10,21 @@ public class Computer{
 
     //function that generates the streategy for teh computer move and selectst the square
     public void move() {
-        //The move that the computer uses
+
+
+        makeStrategicMove();
+    }
+
+    public void makeStrategicMove(){
         int square;
         do {
-            square = (int) (Math.random() * 9 ) + 1; //creaate a random number
-        } while (!game.isEmpty(square)); //loops until it finds out an empty square
+            square = (int) (Math.random() * 9) + 1;//random number from 0,0 inclusive to 0.9 exclusive 
+            //then we cast it into an int so remove teh decimal part and it is from 1 to 9 and add 1 to get the
+            //range 1 inclusive to 10 exclusive
+        } while (!game.isEmpty(square));//loops until finding an empty square
 
         game.setComputer(square);
     }
+
+
 }
