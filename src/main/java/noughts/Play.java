@@ -14,6 +14,8 @@ class Play{
     Computer bot; //The computer player, this ensures the same computer object is used throughout the game
     Scanner input;
     Player player; //The human player
+    boolean computerStarts = false; //boolean to see if the player wants the computer to start
+
         public static void main(String[] args) {
             // main method - just create a Play object
             new Play();
@@ -21,13 +23,33 @@ class Play{
 
         public Play () {
             
+            //to use in the do while loop if the player wants to play again
             boolean playAgain = true;
+            //scanner to use to check the player input to the question play again
             Scanner playAgainInput = new Scanner(System.in);
 
             //loop to allow the player to play again
             do {
                 // constructor
                 System.out.println("Welcome to noughts and crosses"); 
+
+                //Ask the player if they want the computer to start first
+                boolean validAnswer = false;
+                do{
+                    System.out.println("Do you want the machine to start first? Enter yes/no: ");
+                    String computerStartsResponse = playAgainInput.next().toLowerCase();
+                    if (computerStartsResponse.equals("yes")) {
+                        computerStarts = true;
+                        validAnswer= true;
+                    } else if (computerStartsResponse.equals("no")){
+                        computerStarts = false;
+                        validAnswer = true;
+                    } else {
+                        System.out.println("Please enter 'yes' or 'no'");
+                    }
+                } while (!validAnswer);
+
+                //ask the player if they want to play again
                 game = new Game();  // create game board
                 input = new Scanner(System.in);  // Scanner for user input
                 bot = new Computer(game); // Intialize the computer object
@@ -37,21 +59,40 @@ class Play{
 
                 while (!gameOver) {
                     game.printBoard(); // print board
-                    playerTurn();
+                    
+                    //Determine who starts first 
+                    if (computerStarts) {
+                        computerTurn();
+                    } else {
+                        playerTurn();
+                    }
                     game.printBoard();
 
                     if (game.checkWin()) {
-                        System.out.println("Congrats you defeated the evil bots.");
+                        //This is to make sure that the correct message is displayed regardless of who starts
+                        if (!computerStarts){
+                                System.out.println("Congrats you defeated the evil bots.");
+                            } else {
+                                System.out.println("The machines have defeated you.");
+                            }
                         gameOver = true;
                     } else if (game.checkTie()) {
                         System.out.println("You tied , maybe the machines can't be defeated.");
                         gameOver = true;
                     } else {
-                        computerTurn();
-                        //printing the board again so you see how you were defeated
+                        if (computerStarts){
+                            playerTurn();
+                        } else {
+                            computerTurn();
+                        }
                         game.printBoard();
                         if (game.checkWin()) {
-                            System.out.println("The machines have defeated you.");
+                            //This is to make sure that the correct message is displayed regardless of who starts
+                            if (computerStarts){
+                                System.out.println("Congrats you defeated the evil bots.");
+                            } else {
+                                System.out.println("The machines have defeated you.");
+                            }
                             gameOver = true;
                         } else if (game.checkTie()) {
                             System.out.println("You tied , maybe the machines can't be defeated.");
@@ -72,12 +113,12 @@ class Play{
                         playAgain = false;
                         validResponse = true;
                     } else {
-                        System.out.println("Please enter 'yes' or 'no'.");
+                        System.out.println("Please enter 'yes' or 'no'");
                     }
                 } while (!validResponse);
             } while (playAgain);
 
-            System.out.println("Thanks for playing!");
+            System.out.println("Thank you for playing!");
     }
     public void playerTurn()  {
         
