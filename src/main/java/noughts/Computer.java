@@ -15,9 +15,15 @@ public class Computer{
             return;
         }
 
+        if (winColumns()){
+            return;
+        }
+
         if (winDiagonal()){
             return;
         }
+        //first we try to win before blocking the payer from winning
+        
 
         if (conquerCenter()){
             return;
@@ -115,6 +121,36 @@ public class Computer{
             int square = 7;
             game.setComputer(square);
             return true;
+        }
+        return false;
+
+    }
+    
+    //Make sure that the computer wins on columns
+    private boolean winColumns(){
+        for(int i =0; i < 3; i += 1){
+            if(game.board[i] == BoxStatus.Empty && game.board[i+3] == BoxStatus.Computer && game.board[i+6] == BoxStatus.Computer){
+                //I got a lot of bugs because of this but basically since the for loop is index 0 and the board is index 1 I was selecting the wrong square for winning move
+                int square = i+1;
+                game.setComputer(square);
+                return true;
+            } 
+        }
+        for(int i = 3; i < 6; i += 1){
+            if(game.board[i] == BoxStatus.Empty && game.board[i-3] == BoxStatus.Computer && game.board[i+3] == BoxStatus.Computer){
+                //I got a lot of bugs because of this but basically since the for loop index1 is the board index 2 I was selecting the wrong square for winning move
+                int square2 = i+1;
+                game.setComputer(square2);
+                return true;
+            }
+        }
+        for(int i = 6; i < 9; i += 1){
+            if(game.board[i] == BoxStatus.Empty && game.board[i-3] == BoxStatus.Computer && game.board[i-6] == BoxStatus.Computer){
+                //I got a lot of bugs because of this but basically since the for loop index 2 means the board index 3 I was selecting the wrong square for winning move
+                int square3 = i+1;
+                game.setComputer(square3);
+                return true;
+            }
         }
         return false;
 
