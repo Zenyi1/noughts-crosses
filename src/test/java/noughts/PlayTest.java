@@ -63,6 +63,7 @@ public class PlayTest
         assertFalse(game.checkTie()); // Not a tie yet
     }
 
+    //checking if my row startegy works
     @Test
     public void testCheckComputerWinRows(){
         Game game = new Game();
@@ -97,6 +98,7 @@ public class PlayTest
         assertEquals(BoxStatus.Computer, game.getBox(9));
     }
 
+    //checking if myy diagonal strategy works
     @Test
     public void testCheckComputerWinDiagonal(){
         Game game = new Game();
@@ -149,6 +151,41 @@ public class PlayTest
 
         assertEquals(BoxStatus.Computer, game.getBox(2));
 
+    }
+
+    //checking if my column strategy works
+    @Test
+    public void testCheckComputerWinColumn() {
+        Game game = new Game();
+        Computer computer = new Computer(game);
+        //checking for a wining move on the first square of a column
+        game.setComputer(4);
+        game.setComputer(7);
+
+        //let the computer move
+        computer.move();
+
+        assertEquals(BoxStatus.Computer, game.getBox(1)); // check if the correct square was picked
+
+        //Checking for winning move in middle square of a column
+        game = new Game(); // resetting the game
+        computer = new Computer(game);
+        game.setComputer(2);
+        game.setComputer(8);
+
+        computer.move();
+
+        assertEquals(BoxStatus.Computer, game.getBox(5));
+
+        //Checking for winning move in the last square of a column
+        game = new Game();
+        computer = new Computer(game);
+        game.setComputer(3);
+        game.setComputer(6);
+
+        computer.move();
+
+        assertEquals(BoxStatus.Computer, game.getBox(9));
     }
 
     
