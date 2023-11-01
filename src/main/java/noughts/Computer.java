@@ -28,6 +28,14 @@ public class Computer{
             return;
         }
 
+        if (BlockPlayerDiagonal()){
+            return;
+        }
+
+        if (blockPlayerColumns()){
+            return;
+        }
+
         if (conquerCenter()){
             return;
         }
@@ -133,7 +141,6 @@ public class Computer{
     private boolean winColumns(){
         for(int i =0; i < 3; i += 1){
             if(game.board[i] == BoxStatus.Empty && game.board[i+3] == BoxStatus.Computer && game.board[i+6] == BoxStatus.Computer){
-                //I got a lot of bugs because of this but basically since the for loop is index 0 and the board is index 1 I was selecting the wrong square for winning move
                 int square = i+1;
                 game.setComputer(square);
                 return true;
@@ -141,7 +148,6 @@ public class Computer{
         }
         for(int i = 3; i < 6; i += 1){
             if(game.board[i] == BoxStatus.Empty && game.board[i-3] == BoxStatus.Computer && game.board[i+3] == BoxStatus.Computer){
-                //I got a lot of bugs because of this but basically since the for loop index1 is the board index 2 I was selecting the wrong square for winning move
                 int square2 = i+1;
                 game.setComputer(square2);
                 return true;
@@ -149,7 +155,6 @@ public class Computer{
         }
         for(int i = 6; i < 9; i += 1){
             if(game.board[i] == BoxStatus.Empty && game.board[i-3] == BoxStatus.Computer && game.board[i-6] == BoxStatus.Computer){
-                //I got a lot of bugs because of this but basically since the for loop index 2 means the board index 3 I was selecting the wrong square for winning move
                 int square3 = i+1;
                 game.setComputer(square3);
                 return true;
@@ -183,6 +188,69 @@ public class Computer{
             }
         }
         return false;
+    }
+
+    //function that blocks winning player diagonals using same logis as winDiagonal
+     private boolean BlockPlayerDiagonal() {
+        if(game.board[0] == BoxStatus.Empty && game.board[4] == BoxStatus.Human && game.board[8] == BoxStatus.Human){
+            int square = 1;
+            game.setComputer(square);
+            return true;
+        }
+        if(game.board[4] == BoxStatus.Empty && game.board[1] == BoxStatus.Human && game.board[8] == BoxStatus.Human){
+            int square = 5;
+            game.setComputer(square);
+            return true;
+        }
+        if(game.board[8] == BoxStatus.Empty && game.board[1] == BoxStatus.Human && game.board[4] == BoxStatus.Human){
+            int square = 9;
+            game.setComputer(square);
+            return true;
+        }
+        if(game.board[2] == BoxStatus.Empty && game.board[4] == BoxStatus.Human && game.board[6] == BoxStatus.Human){
+            int square = 3;
+            game.setComputer(square);
+            return true;
+        }
+        if(game.board[4] == BoxStatus.Empty && game.board[2] == BoxStatus.Human && game.board[6] == BoxStatus.Human){
+            int square = 5;
+            game.setComputer(square);
+            return true;
+        }
+        if(game.board[6] == BoxStatus.Empty && game.board[4] == BoxStatus.Human && game.board[2] == BoxStatus.Human){
+            int square = 7;
+            game.setComputer(square);
+            return true;
+        }
+        return false;
+
+    }
+
+    //Blocks winning player columns using same logic as winColumns
+    private boolean blockPlayerColumns(){
+        for(int i =0; i < 3; i += 1){
+            if(game.board[i] == BoxStatus.Empty && game.board[i+3] == BoxStatus.Human && game.board[i+6] == BoxStatus.Human){
+                int square = i+1;
+                game.setComputer(square);
+                return true;
+            } 
+        }
+        for(int i = 3; i < 6; i += 1){
+            if(game.board[i] == BoxStatus.Empty && game.board[i-3] == BoxStatus.Human && game.board[i+3] == BoxStatus.Human){
+                int square2 = i+1;
+                game.setComputer(square2);
+                return true;
+            }
+        }
+        for(int i = 6; i < 9; i += 1){
+            if(game.board[i] == BoxStatus.Empty && game.board[i-3] == BoxStatus.Human && game.board[i-6] == BoxStatus.Human){
+                int square3 = i+1;
+                game.setComputer(square3);
+                return true;
+            }
+        }
+        return false;
+
     }
 
 

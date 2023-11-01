@@ -223,5 +223,66 @@ public class PlayTest
         assertEquals(BoxStatus.Computer, game.getBox(9));
     }
 
+    //Test to check that the computer blocks human winning columns
+    @Test
+    public void testCheckComputerBlockHumanColumn() {
+        Game game = new Game();
+        Computer computer = new Computer(game);
+        //Stoping a wining move on the first square of a column
+        game.setHuman(4);
+        game.setHuman(7);
+
+        //let the computer move
+        computer.move();
+
+        assertEquals(BoxStatus.Computer, game.getBox(1)); // check if the correct square was picked
+
+        //Stopping a winning move in middle square of a column
+        game = new Game(); // resetting the game
+        computer = new Computer(game);
+        game.setHuman(2);
+        game.setHuman(8);
+
+        computer.move();
+
+        assertEquals(BoxStatus.Computer, game.getBox(5));
+
+        //Stopping a winning move in the last square of a column
+        game = new Game();
+        computer = new Computer(game);
+        game.setHuman(3);
+        game.setHuman(6);
+
+        computer.move();
+
+        assertEquals(BoxStatus.Computer, game.getBox(9));
+    }
+
+    //Test to check that my strategy blocks human winning diagonals
+    @Test
+    public void testCheckComputerBlockHumanDiagonal(){
+        Game game = new Game();
+        Computer computer = new Computer(game);
+
+        //Checking diagonal 1,5,9
+        game.setHuman(5);
+        game.setHuman(9);
+
+        computer.move();
+
+        assertEquals(BoxStatus.Computer, game.getBox(1));
+
+        //checking diagonal 3,5,7
+        game = new Game();
+        computer = new Computer(game);
+
+        game.setHuman(3);
+        game.setHuman(5);
+
+        computer.move();
+
+        assertEquals(BoxStatus.Computer, game.getBox(7));
+    }
+
     
 }
