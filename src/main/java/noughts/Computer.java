@@ -15,15 +15,19 @@ public class Computer{
             return;
         }
 
+        if (winDiagonal()){
+            return;
+        }
+
         if (conquerCenter()){
             return;
         }
 
-        makeStrategicMove();
+        secretStrategy();
     }
 
     //this function makes a random move, I found teh one line random number implementation on stack overflow and modified to make its range 1 to 9, I explain how it works down there so you can see that I understand it
-    private void makeStrategicMove(){
+    private void secretStrategy(){
         int square;
         do {
             square = (int) (Math.random() * 9) + 1;//random number from 0,0 inclusive to 0.9 exclusive 
@@ -53,8 +57,6 @@ public class Computer{
     private boolean winRows(){
         for(int i =0; i < 7; i += 3){
             if(game.board[i] == BoxStatus.Empty && game.board[i+1] == BoxStatus.Computer && game.board[i+2] == BoxStatus.Computer){
-                System.out.println(i);
-                System.out.println("start is trash");
                 //I got a lot of bugs because of this but basically since the for loop is index 0 and the board is index 1 I was selecting the wrong square for winning move
                 int square = i+1;
                 game.setComputer(square);
@@ -63,8 +65,6 @@ public class Computer{
         }
         for(int i = 1; i < 8; i += 3){
             if(game.board[i] == BoxStatus.Empty && game.board[i-1] == BoxStatus.Computer && game.board[i+1] == BoxStatus.Computer){
-                System.out.println(i);
-                System.out.println("middle is trash");
                 //I got a lot of bugs because of this but basically since the for loop index1 is the board index 2 I was selecting the wrong square for winning move
                 int square2 = i+1;
                 game.setComputer(square2);
@@ -73,8 +73,6 @@ public class Computer{
         }
         for(int i = 2; i < 9; i += 3){
             if(game.board[i] == BoxStatus.Empty && game.board[i-1] == BoxStatus.Computer && game.board[i-2] == BoxStatus.Computer){
-                System.out.println(i);
-                System.out.println("end is trash");
                 //I got a lot of bugs because of this but basically since the for loop index 2 means the board index 3 I was selecting the wrong square for winning move
                 int square3 = i+1;
                 game.setComputer(square3);
@@ -82,6 +80,44 @@ public class Computer{
             }
         }
         return false;
+    }
+
+    
+    //This function checks the 2 possible diagonals to see if there is a possible win there, again this was inspired by the function I created to check for diagonal wins
+    //I am making all these private because they are only accessed within the class and applied to the move function
+    private boolean winDiagonal() {
+        if(game.board[0] == BoxStatus.Empty && game.board[4] == BoxStatus.Computer && game.board[8] == BoxStatus.Computer){
+            int square = 1;
+            game.setComputer(square);
+            return true;
+        }
+        if(game.board[4] == BoxStatus.Empty && game.board[1] == BoxStatus.Computer && game.board[8] == BoxStatus.Computer){
+            int square = 5;
+            game.setComputer(square);
+            return true;
+        }
+        if(game.board[8] == BoxStatus.Empty && game.board[1] == BoxStatus.Computer && game.board[4] == BoxStatus.Computer){
+            int square = 9;
+            game.setComputer(square);
+            return true;
+        }
+        if(game.board[2] == BoxStatus.Empty && game.board[4] == BoxStatus.Computer && game.board[6] == BoxStatus.Computer){
+            int square = 3;
+            game.setComputer(square);
+            return true;
+        }
+        if(game.board[4] == BoxStatus.Empty && game.board[2] == BoxStatus.Computer && game.board[6] == BoxStatus.Computer){
+            int square = 5;
+            game.setComputer(square);
+            return true;
+        }
+        if(game.board[6] == BoxStatus.Empty && game.board[4] == BoxStatus.Computer && game.board[2] == BoxStatus.Computer){
+            int square = 7;
+            game.setComputer(square);
+            return true;
+        }
+        return false;
+
     }
 
 
