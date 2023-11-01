@@ -72,4 +72,58 @@ public class Game {
         System.out.printf("| %c %c %c |\n", boxChar(7), boxChar(8), boxChar(9));
     }
     
+    //Chheck all the options for a win
+    public boolean checkWin() {
+        return checkRows() || checkColumns() || checkDiagonal();
+    }
+
+    //checks each row using a for loop and checks the next 2 squares for a win
+    public boolean checkRows() {
+        for (int i = 0; i < 9; i+=3) {
+            if (board[i] != BoxStatus.Empty && board[i] == board[i+1] && board[i] == board[i+2]) {
+                System.out.println("I failed r");
+                return true;
+                
+            }
+        }
+        return false;
+    }
+
+    //Checks for diagonals wins, not loop since there are only 2 specific cases
+    public boolean checkDiagonal() {
+        if (board[0] != BoxStatus.Empty && board[0] == board[4] && board[0] == board[8]) {
+            System.out.println("I failed d");
+            return true;
+            
+        }
+        if (board[2] != BoxStatus.Empty && board[2] == board[4] && board[2] == board[6]) {
+            System.out.println("I failed d");
+            return true;
+            
+        }
+        return false;
+    }
+
+    //check each column using a loop and the squres below 
+    public boolean checkColumns() {
+        for (int i = 0; i<3; i++){
+            if (board[i] != BoxStatus.Empty && board[i] == board [i+3] && board[i] == board[i+6]) {
+                System.out.println("I failed c");
+                return true;
+                
+            }
+        }
+        return false;
+
+    }
+
+    //Very simple, loops through all the squares and if there are no empty ones calls tie
+    public boolean checkTie() {
+        for (int i = 0; i<9; i++) {
+            if (board[i] == BoxStatus.Empty) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
