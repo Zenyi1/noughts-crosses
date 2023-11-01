@@ -188,5 +188,40 @@ public class PlayTest
         assertEquals(BoxStatus.Computer, game.getBox(9));
     }
 
+     //checking if my column blocking startegy works
+    @Test
+    public void testCheckComputerBlockHumanRows(){
+        Game game = new Game();
+        Computer computer = new Computer(game);
+        //stopping a winning move in the first quare of a row
+        game.setHuman(5);
+        game.setHuman(6);
+
+        //let the computer move
+        computer.move();
+
+        assertEquals(BoxStatus.Computer, game.getBox(4)); // check if the correct square was picked
+
+        //Stopping a winning move in middle square of a row
+        game = new Game(); // resetting the game
+        computer = new Computer(game);
+        game.setHuman(1);
+        game.setHuman(3);
+
+        computer.move();
+
+        assertEquals(BoxStatus.Computer, game.getBox(2));
+
+        //Stopping a winning move in the last square of a row
+        game = new Game();
+        computer = new Computer(game);
+        game.setHuman(7);
+        game.setHuman(8);
+
+        computer.move();
+
+        assertEquals(BoxStatus.Computer, game.getBox(9));
+    }
+
     
 }

@@ -23,7 +23,10 @@ public class Computer{
             return;
         }
         //first we try to win before blocking the payer from winning
-        
+
+        if (blockPlayerRows()){
+            return;
+        }
 
         if (conquerCenter()){
             return;
@@ -155,6 +158,33 @@ public class Computer{
         return false;
 
     }
+
+    //Using the same logic as the winRow function this blocks the human player from winning in rows
+    private boolean blockPlayerRows(){
+        for(int i =0; i < 7; i += 3){
+            if(game.board[i] == BoxStatus.Empty && game.board[i+1] == BoxStatus.Human && game.board[i+2] == BoxStatus.Human){
+                int square = i+1;
+                game.setComputer(square);
+                return true;
+            } 
+        }
+        for(int i = 1; i < 8; i += 3){
+            if(game.board[i] == BoxStatus.Empty && game.board[i-1] == BoxStatus.Human && game.board[i+1] == BoxStatus.Human){
+                int square2 = i+1;
+                game.setComputer(square2);
+                return true;
+            }
+        }
+        for(int i = 2; i < 9; i += 3){
+            if(game.board[i] == BoxStatus.Empty && game.board[i-1] == BoxStatus.Human && game.board[i-2] == BoxStatus.Human){
+                int square3 = i+1;
+                game.setComputer(square3);
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 
